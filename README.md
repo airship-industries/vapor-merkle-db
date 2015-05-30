@@ -11,12 +11,12 @@ Read is unauthenticated and write authenticated. Creating API keys requires the 
 ##### get value for key at root
 returns value for key at the specified root, in hex. 
 
-##### pipe whole tree at root
-`curl localhost:7000/root/`
-returns the output of a readstream of the merkle-patricia-tree generated from the specified root.
-
 
 ### Authenticated API
+
+##### pipe whole tree at root
+`curl localhost:7000/root/?access_token=your_access_token||your_admin_key`
+returns the output of a readstream of the merkle-patricia-tree generated from the specified root.
 
 ##### update value at key for root, get new root
 `curl -d "value=deadbeef" -d "access_token=your_access_token||your_admin_key" localhost:7000/root/key`

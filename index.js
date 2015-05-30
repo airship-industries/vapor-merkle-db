@@ -33,6 +33,9 @@ adminAuth.name = 'admin'
 passport.use(apiAuth)
 passport.use(adminAuth)
 
+var authenticateApiKey = passport.authenticate.bind(passport, 'bearer', { session: false })
+var authenticateAdmin = passport.authenticate.bind(passport, 'admin', { session: false })
+
 function lookupToken(token, cb) {
   if (token === ADMIN_TOKEN) return cb(null, true)
   apiKeyDb.get(token, function(err, data){
@@ -64,7 +67,7 @@ app.get('/:root/:key', function(req, res){
 })
 
 // get trie for root
-app.get('/:root', function(req, res){
+app.get('/:root', authenticateApiKey, function(req, res){
   var root = req.params.root
   console.log('GET /:root', 'root:', root)
   var trie = new Trie(stateDb, root)
@@ -72,7 +75,7 @@ app.get('/:root', function(req, res){
 })
 
 // update value at key for root, get new root
-app.post('/:root/:key', passport.authenticate('bearer', { session: false }), function(req, res){
+app.post('/:root/:key', authenticateApiKey, function(req, res){
   var root = req.params.root
   var key = req.params.key
   var value = req.body.value
@@ -89,7 +92,7 @@ app.post('/:root/:key', passport.authenticate('bearer', { session: false }), fun
 //
 
 // create api key
-app.post('/access_token', passport.authenticate('admin', { session: false }), function(req, res){
+app.post('/access_token', authenticateAdmin, function(req, res){
   var accessToken = {
     uuid: hat(),
     createdAt: Date(),
