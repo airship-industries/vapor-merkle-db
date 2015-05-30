@@ -17,7 +17,8 @@
     "merkle-patricia-tree": "^0.1.26",
     "mkdirp": "^0.5.1",
     "passport": "^0.2.2",
-    "passport-http-bearer": "^1.0.1"
+    "passport-http-bearer": "^1.0.1",
+    "through2": "^0.6.5"
   },
   "devDependencies": {
     "async": "^1.0.0",

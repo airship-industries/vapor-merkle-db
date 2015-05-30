@@ -1,6 +1,7 @@
 var pathJoin = require('path').join
 var mkdirp = require('mkdirp')
 var hat = require('hat')
+var through2 = require('through2')
 var level = require('level-prebuilt')
 var express = require('express')
 var bodyParser = require('body-parser')
@@ -27,14 +28,16 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 // setup auth
 var apiAuth = new BearerStrategy(lookupToken)
+apiAuth.name = 'apiKey'
 var adminAuth = new BearerStrategy(checkAdmin)
 adminAuth.name = 'admin'
 
 passport.use(apiAuth)
 passport.use(adminAuth)
 
-var authenticateApiKey = passport.authenticate.bind(passport, 'bearer', { session: false })
-var authenticateAdmin = passport.authenticate.bind(passport, 'admin', { session: false })
+function authenticateWith(type) {
+  return passport.authenticate(type, { session: false })
+}
 
 function lookupToken(token, cb) {
   if (token === ADMIN_TOKEN) return cb(null, true)
@@ -67,15 +70,21 @@ app.get('/:root/:key', function(req, res){
 })
 
 // get trie for root
-app.get('/:root', authenticateApiKey, function(req, res){
+app.get('/:root', authenticateWith('apiKey'), function(req, res){
   var root = req.params.root
   console.log('GET /:root', 'root:', root)
   var trie = new Trie(stateDb, root)
-  trie.createReadStream().pipe(res)
+  var serialize = through2.obj(function(chunk, enc, cb){
+    this.push(Buffer.concat([chunk.key, chunk.value]))
+    cb()
+  })
+  trie.createReadStream()
+  .pipe(serialize)
+  .pipe(res)
 })
 
 // update value at key for root, get new root
-app.post('/:root/:key', authenticateApiKey, function(req, res){
+app.post('/:root/:key', authenticateWith('apiKey'), function(req, res){
   var root = req.params.root
   var key = req.params.key
   var value = req.body.value
@@ -92,7 +101,7 @@ app.post('/:root/:key', authenticateApiKey, function(req, res){
 //
 
 // create api key
-app.post('/access_token', authenticateAdmin, function(req, res){
+app.post('/access_token', authenticateWith('admin'), function(req, res){
   var accessToken = {
     uuid: hat(),
     createdAt: Date(),
