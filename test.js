@@ -16,14 +16,12 @@ async.waterfall([
 })
 
 function setState(root, key, value, cb){
-
   request.post({
     url: 'http://localhost:7000/'+root+'/'+key,
     form: { value: value },
   }, function(err, resp, body){
     cb(err, body)
   })
-
 }
 
 function getState(root, key, cb){
@@ -32,5 +30,4 @@ function getState(root, key, cb){
   }, function(err, resp, body){
     cb(err, body)
   })
-
 }
