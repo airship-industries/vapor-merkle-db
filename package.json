@@ -12,7 +12,6 @@
   "dependencies": {
     "body-parser": "^1.12.4",
     "express": "^4.12.4",
-    "level": "^1.0.0",
     "level-prebuilt": "^0.18.0-3",
     "merkle-patricia-tree": "^0.1.26",
     "mkdirp": "^0.5.1",
