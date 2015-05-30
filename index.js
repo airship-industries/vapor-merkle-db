@@ -1,6 +1,6 @@
 var pathJoin = require('path').join
 var mkdirp = require('mkdirp')
-var level = require('level')
+var level = require('level-prebuilt')
 var express = require('express')
 var bodyParser = require('body-parser')
 var passport = require('passport')
