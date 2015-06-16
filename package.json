@@ -1,8 +1,9 @@
 {
   "name": "vapor-db",
-  "version": "2.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "start": "node index.js",
     "test": "node test/index.js",
