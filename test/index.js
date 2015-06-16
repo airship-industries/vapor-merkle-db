@@ -17,6 +17,7 @@ trieServer(port, null, function(){
       trie.revert(function(){
         trie.get('beans', function(err, result){
           console.log(result && result.toString())
+          process.exit()
         })
       })
     })
