@@ -1,13 +1,12 @@
 {
-  "name": "vapor-merkle-db",
+  "name": "docker-merkle-patricia-db",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "private": true,
   "scripts": {
     "start": "node index.js",
-    "test": "node test/index.js",
-    "docker": "docker build -t vapor-db ."
+    "test": "node test/index.js"
   },
   "author": "kumavis",
   "license": "ISC",

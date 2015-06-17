@@ -5,5 +5,5 @@ const port = 9000
 var db = level('./db')
 
 trieServer(port, db, function(){
-  console.log('TrieServer listening on '+port)
+  console.log('MerklePatriaServer listening on '+port)
 })
