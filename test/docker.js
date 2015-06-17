@@ -1,9 +1,10 @@
 const websocket = require('websocket-stream')
 const trieServer = require('../server.js')
 const RemoteTrie = require('remote-merkle-patricia-tree/remote')
-const port = 7001
+const port = 9000
 
-var ws = websocket('ws://192.168.59.103:'+port)
+// var ws = websocket('ws://docker:'+port)
+var ws = websocket('ws://merkle.vapor.to')
 var trie = new RemoteTrie()
 ws.pipe(trie.createNetworkStream()).pipe(ws)
 
