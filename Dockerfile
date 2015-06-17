@@ -1,14 +1,18 @@
 FROM node:0.12
+MAINTAINER kumavis
 
 # setup app dir
 RUN mkdir -p /www/
 WORKDIR /www/
 
+# install dependencies
+COPY ./package.json /www/package.json
+RUN npm install
+
 # copy over app dir
 COPY ./ /www/
 
-# setup deps
-RUN npm install
+# run tests
 RUN npm test
 
 # start server
