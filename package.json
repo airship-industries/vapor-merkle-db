@@ -9,7 +9,7 @@
     "test": "node test/index.js",
     "docker": "docker build -t vapor-db ."
   },
-  "author": "",
+  "author": "kumavis",
   "license": "ISC",
   "dependencies": {
     "hat": "0.0.3",
