@@ -15,7 +15,6 @@
     "level": "^1.1.0",
     "pretty-hrtime": "^1.0.0",
     "remote-merkle-patricia-tree": "1.2.1",
-    "websocket-stream": "^1.5.0"
   },
   "devDependencies": {
     "tape": "^4.0.0"
