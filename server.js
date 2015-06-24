@@ -1,6 +1,5 @@
-const http = require('http')
+const net = require('net')
 const hat = require('hat')
-const websocket = require('websocket-stream')
 const HostTrie = require('remote-merkle-patricia-tree/host')
 const prettyHrtime = require('pretty-hrtime')
 
@@ -9,9 +8,9 @@ module.exports = remoteDbServer
 
 function remoteDbServer(port, db, cb) {
 
-  var server = http.createServer()
-  websocket.createServer({ server: server }, onConnect)
+  var server = net.createServer(onConnect)
   server.listen(port, cb)
+  return server
 
   function onConnect(duplex) {
 
