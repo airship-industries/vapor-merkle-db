@@ -18,6 +18,7 @@ function remoteDbServer(port, db, cb) {
     var start = process.hrtime()
     console.log(id, '- connected')
     var trie = new HostTrie(db)
+
     duplex.pipe(trie.createNetworkStream()).pipe(duplex)
     duplex.on('end', function(){
       var duration = process.hrtime(start)
