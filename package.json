@@ -1,6 +1,6 @@
 {
   "name": "docker-merkle-patricia-db",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "private": true,
@@ -14,7 +14,7 @@
     "hat": "0.0.3",
     "level": "^1.1.0",
     "pretty-hrtime": "^1.0.0",
-    "remote-merkle-patricia-tree": "1.2.1"
+    "remote-merkle-patricia-tree": "1.2.2"
   },
   "devDependencies": {
     "tape": "^4.0.0"
